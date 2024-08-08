@@ -9,10 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@breezystack/lamejs": "^1.2.7",
+    "axios": "^1.7.3",
+    "extendable-media-recorder": "^9.2.9",
+    "extendable-media-recorder-wav-encoder": "^7.0.113",
+    "firebase": "^10.12.5",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
-    "react-icons": "^5.2.1"
+    "react-icons": "^5.2.1",
+    "react-spinners": "^0.14.1",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "postcss": "^8",
