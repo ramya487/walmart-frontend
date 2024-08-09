@@ -200,6 +200,17 @@ const SearchSpace = () => {
     }
   };
 
+  const handleSearch = async () => {
+    try {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/translate`, {
+        text: transcribed
+      })
+      if (response) console.log(response.data);
+    } catch (error) {
+      console.error("error in translation | fetch product")
+    }
+  }
+
   return (
     <div
       className={`bg-red-100 bg-opacity-55 h-56 mx-60 rounded-lg ${
