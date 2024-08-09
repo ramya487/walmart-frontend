@@ -13,6 +13,9 @@ import { v4 } from "uuid";
 import axios from "axios";
 import HashLoader from "react-spinners/HashLoader";
 
+import { Zoom } from "@mui/material";
+import { IoIosCheckmarkCircleOutline } from "react-icons/io";
+
 const connect_ = async () => {
   await register(await connect());
 };
@@ -173,6 +176,7 @@ const SearchSpace = () => {
 
   const stopRecording = async () => {
     const wavAudioBlob = await stopRecording_();
+    setLoading(true);
     if (!wavAudioBlob) {
       console.error("Not received wavAudioBlob");
     } else {
@@ -197,7 +201,11 @@ const SearchSpace = () => {
   };
 
   return (
-    <div className={`bg-red-100 bg-opacity-55 h-56 mx-60 rounded-lg ${counter !== 2 ? 'grid grid-cols-2' : 'flex justify-center items-center'}`}>
+    <div
+      className={`bg-red-100 bg-opacity-55 h-56 mx-60 rounded-lg ${
+        counter !== 2 ? "grid grid-cols-2" : "flex justify-center items-center"
+      }`}
+    >
       {counter !== 2 ? (
         <>
           <div className="flex justify-center items-center text-lg tracking-wide">
@@ -213,7 +221,43 @@ const SearchSpace = () => {
           </div>
         </>
       ) : (
-        <>{loading ? <div className="flex flex-col gap-4 justify-center items-center"><HashLoader color="#837373" size={50} /><div className="text-[#3a3333]">Transcribing</div></div> : <>{transcribed}</>}</>
+        <>
+          {loading ? (
+            <div className="flex flex-col gap-4 justify-center items-center">
+              <HashLoader color="#837373" size={50} />
+              <div className="text-[#3a3333]">Transcribing</div>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-4 justify-center items-center">
+              <Zoom
+                in={counter === 2}
+                style={{ transitionDelay: counter === 2 ? "500ms" : "0ms" }}
+              >
+                <div>
+                  <IoIosCheckmarkCircleOutline size={60} fill="#3a3333" />
+                </div>
+              </Zoom>
+              <Zoom
+                in={counter === 2}
+                style={{ transitionDelay: counter === 2 ? "600ms" : "0ms" }}
+              >
+                <div>
+                  {transcribed}
+                </div>
+              </Zoom>
+              <Zoom
+                in={counter === 2}
+                style={{ transitionDelay: counter === 2 ? "600ms" : "0ms" }}
+              >
+                <div>
+                  <button className="px-7 py-2 rounded-full bg-[#3a3333] text-xs text-white hover:bg-[#5a5050]">
+                    Search
+                  </button>
+                </div>
+              </Zoom>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
