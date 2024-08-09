@@ -1,9 +1,14 @@
-import React from 'react'
+"use client"
+
+import React, { useEffect } from "react";
+import useProduct from "@/store/store";
 
 const page = () => {
-  return (
-    <div>product page</div>
-  )
-}
+  const { product, setProduct } = useProduct((state) => state);
+  useEffect(() => {
+    console.log(product);
+  }, []);
+  return <div>product page</div>;
+};
 
-export default page
+export default page;

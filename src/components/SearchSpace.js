@@ -12,9 +12,14 @@ import { v4 } from "uuid";
 
 import axios from "axios";
 import HashLoader from "react-spinners/HashLoader";
+import ClipLoader from "react-spinners/ClipLoader";
 
 import { Zoom } from "@mui/material";
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
+
+import useProduct from "@/store/store";
+
+import { useRouter } from "next/navigation";
 
 const connect_ = async () => {
   await register(await connect());
@@ -22,6 +27,10 @@ const connect_ = async () => {
 connect_();
 
 const SearchSpace = () => {
+  const { product, setProduct } = useProduct((state) => state);
+
+  const router = useRouter();
+
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState(false);
   const [counter, setCounter] = useState(0);
@@ -200,16 +209,27 @@ const SearchSpace = () => {
     }
   };
 
+  const [searchLoading, setSearchLoading] = useState(false);
+
   const handleSearch = async () => {
+    setSearchLoading(true);
     try {
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/translate`, {
-        text: transcribed
-      })
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/translate`,
+        {
+          text: transcribed,
+        }
+      );
       if (response) console.log(response.data);
+      setProduct(response.data);
+      router.push("/product");
+
     } catch (error) {
-      console.error("error in translation | fetch product")
+      console.error("error in translation | fetch product");
+    }finally{
+      setSearchLoading(false);
     }
-  }
+  };
 
   return (
     <div
@@ -252,17 +272,15 @@ const SearchSpace = () => {
                 in={counter === 2}
                 style={{ transitionDelay: counter === 2 ? "600ms" : "0ms" }}
               >
-                <div>
-                  {transcribed}
-                </div>
+                <div>{transcribed}</div>
               </Zoom>
               <Zoom
                 in={counter === 2}
                 style={{ transitionDelay: counter === 2 ? "600ms" : "0ms" }}
               >
                 <div>
-                  <button className="px-7 py-2 rounded-full bg-[#3a3333] text-xs text-white hover:bg-[#5a5050]">
-                    Search
+                  <button className="px-7 py-2 rounded-full bg-[#3a3333] text-xs text-white hover:bg-[#1d1717]" onClick={handleSearch}>
+                  {searchLoading ? <ClipLoader size={22} color="#ffffff" /> : <>Search</>}
                   </button>
                 </div>
               </Zoom>
