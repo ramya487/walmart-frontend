@@ -222,7 +222,7 @@ const SearchSpace = () => {
       );
       if (response) console.log(response.data);
       setProduct(response.data);
-      router.push("/product");
+      router.push("/main/product");
 
     } catch (error) {
       console.error("error in translation | fetch product");
