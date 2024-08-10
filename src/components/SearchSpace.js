@@ -233,7 +233,7 @@ const SearchSpace = () => {
 
   return (
     <div
-      className={`bg-red-100 bg-opacity-55 h-56 mx-60 rounded-lg ${
+      className={`bg-red-100 bg-opacity-70 h-56 mx-60 rounded-lg ${
         counter !== 2 ? "grid grid-cols-2" : "flex justify-center items-center"
       }`}
     >

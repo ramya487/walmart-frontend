@@ -7,7 +7,7 @@ import toSnakeCase from "@/app/misc/functions";
 const Card = ({ img, title, desc, price, brand }) => {
   const router = useRouter();
   return (
-    <div className="p-5 flex flex-col gap-7 bg-white rounded-md">
+    <div className="p-5 flex flex-col gap-7 bg-white rounded-md animate-in slide-in-from-bottom-80 duration-500 justify-end">
       <div>
         <Image src={img} height={200} width={200} />
       </div>
