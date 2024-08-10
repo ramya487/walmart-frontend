@@ -1,8 +1,10 @@
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { FaCartShopping } from "react-icons/fa6";
 
 const Card = ({ img, title, desc, price, brand }) => {
+  const router = useRouter();
   return (
     <div className="p-5 flex flex-col gap-7 bg-white rounded-md">
       <div>
@@ -17,7 +19,7 @@ const Card = ({ img, title, desc, price, brand }) => {
       </div>
       <div className="flex justify-between items-center text-[14px] font-semibold">
         {brand}
-        <button className="px-4 py-2 rounded-lg text-xs bg-orange-400 text-white hover:bg-red-400">
+        <button className="px-4 py-2 rounded-lg text-xs bg-orange-400 text-white hover:bg-red-400" onClick={() => router.push("/tryon")}>
           Try On
         </button>
         <div><FaCartShopping size={18} fill="#837373"/></div>
