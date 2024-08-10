@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { FaCartShopping } from "react-icons/fa6";
+import toSnakeCase from "@/app/misc/functions";
 
 const Card = ({ img, title, desc, price, brand }) => {
   const router = useRouter();
@@ -19,7 +20,7 @@ const Card = ({ img, title, desc, price, brand }) => {
       </div>
       <div className="flex justify-between items-center text-[14px] font-semibold">
         {brand}
-        <button className="px-4 py-2 rounded-lg text-xs bg-orange-400 text-white hover:bg-red-400" onClick={() => router.push("/tryon")}>
+        <button className="px-4 py-2 rounded-lg text-xs bg-orange-400 text-white hover:bg-red-400" onClick={() => router.push(`${process.env.NEXT_PUBLIC_BACKEND_TRYON_URL}?type=${toSnakeCase(title)}`)}>
           Try On
         </button>
         <div><FaCartShopping size={18} fill="#837373"/></div>
